@@ -49,12 +49,13 @@ class MainScreen : View() {
 
 class TableDrawer(private val c: Canvas) : AnimationTimer() {
 
-    var animDelay = 10.millis.toNanos()
+    var animDelay = 1.millis.toNanos()
     var prevTime = 0L
     var pointCount = 500
     var factor = 0.0
     var speed = 0.01
-    var colorFactor = 10
+    var colorPeriod = 5 //Seconds
+    var colorFactor = factorPerSecond() * colorPeriod
     override fun handle(now: Long) {
         if (now > prevTime + animDelay) {
             prevTime = now
@@ -71,7 +72,7 @@ class TableDrawer(private val c: Canvas) : AnimationTimer() {
 
                 fillText("n = $pointCount", ox, oy - (r * 1.1))
                 fillText("k = ${round(factor, 3)}", ox, oy + (r * 1.1))
-
+                fillText("kps = $colorFactor", ox, oy + (r * 1.2))
                 translate(ox, oy)
                 scale(r, r)
 
@@ -91,6 +92,8 @@ class TableDrawer(private val c: Canvas) : AnimationTimer() {
     init {
         c.graphicsContext2D.textAlign = TextAlignment.CENTER
     }
+
+    private fun factorPerSecond() = speed * 1.seconds.toNanos() / animDelay
 
     private fun GraphicsContext.bindPoint(a: Int) {
         val θ1 = angleToPoint(a)
