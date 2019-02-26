@@ -17,7 +17,10 @@ fun Duration.toNanos(): Double {
     return toMillis() * 1000000
 }
 
-
+fun round(n: Double, precision: Int): Double {
+    val t = Math.pow(10.0, precision.toDouble())
+    return Math.round(n * t).toDouble() / t
+}
 const val π = PI
 
 class MainScreen : View() {
@@ -67,7 +70,7 @@ class TableDrawer(private val c: Canvas) : AnimationTimer() {
                 color = c("#99AAB5")
 
                 fillText("n = $pointCount", ox, oy - (r * 1.1))
-                fillText("k = $factor", ox, oy + (r * 1.1))
+                fillText("k = ${round(factor, 3)}", ox, oy + (r * 1.1))
 
                 translate(ox, oy)
                 scale(r, r)
