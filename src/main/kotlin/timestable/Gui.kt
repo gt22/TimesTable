@@ -49,7 +49,7 @@ class MainScreen : View() {
 
 class TableDrawer(private val c: Canvas) : AnimationTimer() {
 
-    var animDelay = 1.millis.toNanos()
+    var animDelay = 1.seconds.toNanos()
     var prevTime = 0L
     var pointCount = 500
     var factor = 0.0
@@ -72,7 +72,6 @@ class TableDrawer(private val c: Canvas) : AnimationTimer() {
 
                 fillText("n = $pointCount", ox, oy - (r * 1.1))
                 fillText("k = ${round(factor, 3)}", ox, oy + (r * 1.1))
-                fillText("kps = $colorFactor", ox, oy + (r * 1.2))
                 translate(ox, oy)
                 scale(r, r)
 
